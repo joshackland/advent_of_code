@@ -1,4 +1,4 @@
- var inputFile = File.ReadAllLines("./input/input_01.txt");
+ var inputFile = File.ReadAllLines("../input/input_01.txt");
  var input = new List<string>(inputFile);
 
 /*

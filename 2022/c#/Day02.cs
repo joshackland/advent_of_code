@@ -1,4 +1,4 @@
- var inputFile = File.ReadAllLines("./input/input_02.txt");
+ var inputFile = File.ReadAllLines("../input/input_02.txt");
  var input = new List<string>(inputFile);
 
 //A - Rock, B - Paper, C - Scissors
