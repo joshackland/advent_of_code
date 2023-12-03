@@ -1,3 +1,5 @@
+using System.Text.Json;
+
 var inputFile = File.ReadAllLines("../input/input_13_test.txt");
 var input = new List<string>(inputFile);
 
@@ -149,8 +151,9 @@ void Part1()
     foreach (var pair in packetPairs){        
         pairIndex++;
 
-        var packetLeft = CreatePacket(pair[0]);
-        var packetRight = CreatePacket(pair[1]);
+        var elementLeft = (JsonElement)JsonSerializer.Deserialize<object>(pair[0])!;
+        var packetLeft = elementLeft.ValueKind == JsonValueKind.Number ? elementLeft.GetInt32() : elementLeft.EnumerateArray().Select(FromJsonElement).ToArray()
+        var packetRight = (JsonElement)JsonSerializer.Deserialize<object>(pair[1])!;
         int round = 0;
 
         while (true)
