@@ -1,5 +1,3 @@
-from functools import cache
-
 input = list()
 
 with open('../input/15.txt', 'r') as f:

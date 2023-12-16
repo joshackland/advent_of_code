@@ -1,6 +1,3 @@
-import math
-
-
 input = list()
 
 with open('../input/09.txt', 'r') as f:
