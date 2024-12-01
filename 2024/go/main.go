@@ -1,13 +1,11 @@
 package main
 
 import (
-	"bufio"
 	"fmt"
 	"io"
 	"net/http"
 	"os"
 	"path/filepath"
-	"strings"
 
 	"github.com/joho/godotenv"
 )
@@ -38,6 +36,9 @@ func getInput(day int) string {
 
 	body, _ := io.ReadAll(resp.Body)
 
+	_ = os.MkdirAll(inputDir, os.ModePerm)
+	_ = os.WriteFile(inputFile, body, os.ModePerm)
+
 	return string(body)
 }
 
@@ -47,10 +48,5 @@ func main() {
 	day := 1
 	input := getInput(day)
 
-	fmt.Println("Input received:")
-	scanner := bufio.NewScanner(io.Reader(strings.NewReader(input)))
-	for scanner.Scan() {
-		fmt.Println(scanner.Text())
-	}
 	// Your solution logic here
 }
