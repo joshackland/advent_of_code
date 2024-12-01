@@ -49,4 +49,6 @@ func main() {
 	input := getInput(day)
 
 	// Your solution logic here
+	day1_1(input)
+	day1_2(input)
 }
