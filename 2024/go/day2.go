@@ -91,13 +91,11 @@ func day2_2(input string) {
 func levelIsSafe(levels []int) bool {
 	isIncreasing := true
 	isSafe := true
-	badLevel := 0
 
 	for i := 1; i < len(levels); i++ {
 		diff := levels[i] - levels[i-1]
 
 		if diff == 0 {
-			badLevel++
 			isSafe = false
 			break
 		}
