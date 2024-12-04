@@ -19,7 +19,7 @@ func day3_1(input string) {
 		output += num1 * num2
 	}
 
-	fmt.Println("Output Day 1 Part 1", output)
+	fmt.Println("Output Day 3 Part 1", output)
 }
 
 func day3_2(input string) {
@@ -44,5 +44,5 @@ func day3_2(input string) {
 		output += num1 * num2
 	}
 
-	fmt.Println("Output Day 1 Part 2", output)
+	fmt.Println("Output Day 3 Part 2", output)
 }
