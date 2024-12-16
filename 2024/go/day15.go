@@ -5,7 +5,7 @@ import (
 	"strings"
 )
 
-type Point struct {
+type PointD15 struct {
 	x int
 	y int
 }
@@ -16,7 +16,7 @@ func day15_1(input string) {
 
 	output := 0
 
-	var robot Point
+	var robot PointD15
 	posFound := false
 	instructions := []rune{}
 
@@ -26,7 +26,7 @@ func day15_1(input string) {
 		if !posFound {
 			for j := 0; j < len(line); j++ {
 				if line[j] == '@' {
-					robot = Point{
+					robot = PointD15{
 						i, j,
 					}
 					posFound = true
@@ -42,11 +42,11 @@ func day15_1(input string) {
 		}
 	}
 
-	directions := map[rune]Point{
-		'^': Point{0, -1},
-		'>': Point{1, 0},
-		'v': Point{0, 1},
-		'<': Point{-1, 0},
+	directions := map[rune]PointD15{
+		'^': PointD15{0, -1},
+		'>': PointD15{1, 0},
+		'v': PointD15{0, 1},
+		'<': PointD15{-1, 0},
 	}
 
 	for _, instruction := range instructions {
@@ -56,25 +56,25 @@ func day15_1(input string) {
 		// 	fmt.Println(string(line))
 		// }
 
-		nextPosition := Point{robot.x + dir.x, robot.y + dir.y}
+		nextPosition := PointD15{robot.x + dir.x, robot.y + dir.y}
 
 		if grid[nextPosition.y][nextPosition.x] == '#' {
 			continue
 		} else if grid[nextPosition.y][nextPosition.x] == '.' {
 			grid[robot.y][robot.x] = '.'
-			robot = Point{nextPosition.x, nextPosition.y}
+			robot = PointD15{nextPosition.x, nextPosition.y}
 			grid[robot.y][robot.x] = '@'
 		} else if grid[nextPosition.y][nextPosition.x] == 'O' {
-			nextBox := Point{nextPosition.x + dir.x, nextPosition.y + dir.y}
+			nextBox := PointD15{nextPosition.x + dir.x, nextPosition.y + dir.y}
 			for grid[nextBox.y][nextBox.x] == 'O' {
-				nextBox = Point{nextBox.x + dir.x, nextBox.y + dir.y}
+				nextBox = PointD15{nextBox.x + dir.x, nextBox.y + dir.y}
 			}
 			if grid[nextBox.y][nextBox.x] == '#' {
 				continue
 			} else if grid[nextBox.y][nextBox.x] == '.' {
 				grid[nextBox.y][nextBox.x] = 'O'
 				grid[robot.y][robot.x] = '.'
-				robot = Point{nextPosition.x, nextPosition.y}
+				robot = PointD15{nextPosition.x, nextPosition.y}
 				grid[robot.y][robot.x] = '@'
 			}
 		}
@@ -97,7 +97,7 @@ func day15_2(input string) {
 
 	output := 0
 
-	var robot Point
+	var robot PointD15
 	instructions := []rune{}
 
 	for i, line := range strings.Split(split[0], "\n") {
@@ -114,7 +114,7 @@ func day15_2(input string) {
 				gridLine = append(gridLine, '.')
 				gridLine = append(gridLine, '.')
 			} else if r == '@' {
-				robot = Point{
+				robot = PointD15{
 					len(gridLine),
 					i,
 				}
@@ -131,11 +131,11 @@ func day15_2(input string) {
 		}
 	}
 
-	directions := map[rune]Point{
-		'^': Point{0, -1},
-		'>': Point{1, 0},
-		'v': Point{0, 1},
-		'<': Point{-1, 0},
+	directions := map[rune]PointD15{
+		'^': PointD15{0, -1},
+		'>': PointD15{1, 0},
+		'v': PointD15{0, 1},
+		'<': PointD15{-1, 0},
 	}
 
 	// for _, line := range grid {
@@ -145,26 +145,26 @@ func day15_2(input string) {
 		dir := directions[instruction]
 		// fmt.Println(string(instruction))
 
-		nextPosition := Point{robot.x + dir.x, robot.y + dir.y}
+		nextPosition := PointD15{robot.x + dir.x, robot.y + dir.y}
 
 		if grid[nextPosition.y][nextPosition.x] == '#' {
 			continue
 		} else if grid[nextPosition.y][nextPosition.x] == '.' {
 			grid[robot.y][robot.x] = '.'
-			robot = Point{nextPosition.x, nextPosition.y}
+			robot = PointD15{nextPosition.x, nextPosition.y}
 			grid[robot.y][robot.x] = '@'
 		} else if grid[nextPosition.y][nextPosition.x] == '[' || grid[nextPosition.y][nextPosition.x] == ']' {
-			boxes := [][][2]Point{}
+			boxes := [][][2]PointD15{}
 
 			if grid[nextPosition.y][nextPosition.x] == '[' {
-				boxes = append(boxes, [][2]Point{{
-					Point{nextPosition.x, nextPosition.y},
-					Point{nextPosition.x + 1, nextPosition.y},
+				boxes = append(boxes, [][2]PointD15{{
+					PointD15{nextPosition.x, nextPosition.y},
+					PointD15{nextPosition.x + 1, nextPosition.y},
 				}})
 			} else {
-				boxes = append(boxes, [][2]Point{{
-					Point{nextPosition.x - 1, nextPosition.y},
-					Point{nextPosition.x, nextPosition.y},
+				boxes = append(boxes, [][2]PointD15{{
+					PointD15{nextPosition.x - 1, nextPosition.y},
+					PointD15{nextPosition.x, nextPosition.y},
 				}})
 			}
 
@@ -172,7 +172,7 @@ func day15_2(input string) {
 
 			wallFound := false
 			for len(currentBoxes) > 0 && !wallFound {
-				nextBoxes := [][2]Point{}
+				nextBoxes := [][2]PointD15{}
 				for _, box := range currentBoxes {
 					if grid[box[0].y+dir.y][box[0].x+dir.x] == '#' || grid[box[1].y+dir.y][box[1].x+dir.x] == '#' {
 						wallFound = true
@@ -181,36 +181,36 @@ func day15_2(input string) {
 
 					if instruction == '^' || instruction == 'v' {
 						if grid[box[0].y+dir.y][box[0].x+dir.x] == '[' {
-							nextBoxes = append(nextBoxes, [2]Point{
-								Point{box[0].x, box[0].y + dir.y},
-								Point{box[0].x + 1, box[0].y + dir.y},
+							nextBoxes = append(nextBoxes, [2]PointD15{
+								PointD15{box[0].x, box[0].y + dir.y},
+								PointD15{box[0].x + 1, box[0].y + dir.y},
 							})
 						} else if grid[box[0].y+dir.y][box[0].x+dir.x] == ']' {
-							nextBoxes = append(nextBoxes, [2]Point{
-								Point{box[0].x - 1, box[0].y + dir.y},
-								Point{box[0].x, box[0].y + dir.y},
+							nextBoxes = append(nextBoxes, [2]PointD15{
+								PointD15{box[0].x - 1, box[0].y + dir.y},
+								PointD15{box[0].x, box[0].y + dir.y},
 							})
 						}
 						if grid[box[1].y+dir.y][box[1].x+dir.x] == '[' {
-							nextBoxes = append(nextBoxes, [2]Point{
-								Point{box[1].x, box[1].y + dir.y},
-								Point{box[1].x + 1, box[1].y + dir.y},
+							nextBoxes = append(nextBoxes, [2]PointD15{
+								PointD15{box[1].x, box[1].y + dir.y},
+								PointD15{box[1].x + 1, box[1].y + dir.y},
 							})
 						}
 
 					} else if instruction == '<' || instruction == '>' {
 						if instruction == '<' {
 							if grid[box[0].y+dir.y][box[0].x+dir.x] == ']' {
-								nextBoxes = append(nextBoxes, [2]Point{
-									Point{box[0].x + dir.x*2, box[0].y + dir.y},
-									Point{box[0].x + dir.x, box[0].y + dir.y},
+								nextBoxes = append(nextBoxes, [2]PointD15{
+									PointD15{box[0].x + dir.x*2, box[0].y + dir.y},
+									PointD15{box[0].x + dir.x, box[0].y + dir.y},
 								})
 							}
 						} else {
 							if grid[box[1].y+dir.y][box[1].x+dir.x] == '[' {
-								nextBoxes = append(nextBoxes, [2]Point{
-									Point{box[1].x + dir.x, box[1].y + dir.y},
-									Point{box[1].x + dir.x*2, box[1].y + dir.y},
+								nextBoxes = append(nextBoxes, [2]PointD15{
+									PointD15{box[1].x + dir.x, box[1].y + dir.y},
+									PointD15{box[1].x + dir.x*2, box[1].y + dir.y},
 								})
 							}
 						}
@@ -242,7 +242,7 @@ func day15_2(input string) {
 			}
 
 			grid[robot.y][robot.x] = '.'
-			robot = Point{nextPosition.x, nextPosition.y}
+			robot = PointD15{nextPosition.x, nextPosition.y}
 			grid[robot.y][robot.x] = '@'
 			// for _, line := range grid {
 			// 	fmt.Println(string(line))

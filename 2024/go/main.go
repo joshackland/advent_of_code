@@ -45,9 +45,9 @@ func getInput(day int) string {
 func main() {
 	godotenv.Load(".env")
 
-	day := 15
+	day := 16
 	input := getInput(day)
 
-	day15_1(input)
-	day15_2(input)
+	day16_1(input)
+	day16_2(input)
 }
