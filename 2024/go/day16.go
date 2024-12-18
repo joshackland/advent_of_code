@@ -9,7 +9,7 @@ type Point struct {
 	x, y int
 }
 
-type State struct {
+type StateD16 struct {
 	position  Point
 	direction int
 	score     int
@@ -42,10 +42,10 @@ func day16_1(input string) {
 
 	previousPositions := make(map[[3]int]bool)
 
-	queue := []State{State{start, 1, 0, []Point{}}}
+	queue := []StateD16{StateD16{start, 1, 0, []Point{}}}
 
-	lowestState := func() State {
-		min := State{Point{0, 0}, 0, -1, []Point{}}
+	lowestState := func() StateD16 {
+		min := StateD16{Point{0, 0}, 0, -1, []Point{}}
 		index := -1
 
 		for i, s := range queue {
@@ -81,8 +81,8 @@ func day16_1(input string) {
 			leftDirKey %= 4
 		}
 
-		currentLeft := State{currentState.position, leftDirKey, currentState.score, []Point{}}
-		currentRight := State{currentState.position, ((currentState.direction + 1) % 4), currentState.score, []Point{}}
+		currentLeft := StateD16{currentState.position, leftDirKey, currentState.score, []Point{}}
+		currentRight := StateD16{currentState.position, ((currentState.direction + 1) % 4), currentState.score, []Point{}}
 
 		currentDir := directions[currentState.direction]
 		leftDir := directions[currentLeft.direction]
@@ -132,10 +132,10 @@ func day16_2(input string) {
 	}
 
 	previousPositions := make(map[[3]int]int)
-	queue := []State{{start, 1, 0, []Point{start}}}
+	queue := []StateD16{{start, 1, 0, []Point{start}}}
 
-	lowestState := func() State {
-		min := State{Point{0, 0}, 0, -1, []Point{}}
+	lowestState := func() StateD16 {
+		min := StateD16{Point{0, 0}, 0, -1, []Point{}}
 		index := -1
 
 		for i, s := range queue {
@@ -180,8 +180,8 @@ func day16_2(input string) {
 			leftDirKey %= 4
 		}
 
-		currentLeft := State{currentState.position, leftDirKey, currentState.score, currentState.tiles}
-		currentRight := State{currentState.position, ((currentState.direction + 1) % 4), currentState.score, currentState.tiles}
+		currentLeft := StateD16{currentState.position, leftDirKey, currentState.score, currentState.tiles}
+		currentRight := StateD16{currentState.position, ((currentState.direction + 1) % 4), currentState.score, currentState.tiles}
 
 		currentDir := directions[currentState.direction]
 		leftDir := directions[currentLeft.direction]
