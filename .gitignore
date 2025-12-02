@@ -1,3 +1,5 @@
 .env
 **/inputs/
 **/input/
+obj
+bin
