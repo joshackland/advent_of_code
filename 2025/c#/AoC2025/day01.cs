@@ -14,7 +14,7 @@ class Day01
         {
             char direction = line[0];
             int distance = int.Parse(line.Substring(1));
-
+            
             distance = distance % 100;
 
             if (direction == 'R')
