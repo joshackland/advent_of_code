@@ -5,7 +5,7 @@ class Program
 {
     static void Main()
     {
-        var challenge = new Day05();
+        var challenge = new Day06();
 
         challenge.Part1();
         challenge.Part2();
